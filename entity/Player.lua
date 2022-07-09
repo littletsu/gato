@@ -1,4 +1,5 @@
 local AssetManager = require("engine.AssetManager")
+local PlayerBullet = require("objects.PlayerBullet")
 local paths = require("engine.AssetPaths")
 local inspect = require("utils.inspect")
 
@@ -26,10 +27,14 @@ local Player = {
         end
 
         love.graphics.draw(self.catDefault, self.x, self.y, 0, self.scale_x, self.scale_y)
+
+        PlayerBullet:draw()
     end,
     start = function() end,
     ends = function() end,
     update = function(self)
+        PlayerBullet:update()
+        
         self.focused = false
         self.speed = self.default_speed
 
