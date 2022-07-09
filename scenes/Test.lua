@@ -20,8 +20,10 @@ return {
     end,
     ends = function() 
         Player:ends()
+        Enemy:ends()
     end,
     update = function()
         Player:update()
+        Enemy:update()
     end
 }
