@@ -18,12 +18,12 @@ local Player = {
     start = function() end,
     ends = function() end,
     update = function(self)
-        -- looping through keyActions would probably be more expensive so this is what we're left with ;-;
         if love.keyboard.isDown("w") then 
             self.vel_y = self.vel_y - self.speed
         elseif love.keyboard.isDown("s") then
             self.vel_y = self.vel_y + self.speed
         end
+
         if love.keyboard.isDown("a") then
             self.vel_x = self.vel_x - self.speed
         elseif love.keyboard.isDown("d") then
