@@ -42,6 +42,8 @@ local Player = {
     
     start = function(self) 
         self:setBulletOffsets()
+        self.x = Offsets.screenCenterX(self.catDefault, self.scale_x)
+        self.y = 400
     end,
 
     draw = function(self)
