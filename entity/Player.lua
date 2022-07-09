@@ -11,22 +11,6 @@ local Player = {
     vel_x = 0,
     vel_y = 0,
     speed = 1,
-    
-
-    keyActions = {
-        ["w"] = function(player) 
-            player.vel_y = player.vel_y - player.speed
-        end,
-        ["s"] = function(player) 
-            player.vel_y = player.vel_y + player.speed
-        end,
-        ["a"] = function(player) 
-            player.vel_x = player.vel_x - player.speed
-        end,
-        ["d"] = function(player) 
-            player.vel_x = player.vel_x + player.speed
-        end,
-    },
 
     draw = function(self)
         love.graphics.draw(self.catDefault, self.x, self.y, 0, 0.3, 0.3)
@@ -36,16 +20,14 @@ local Player = {
     update = function(self)
         -- looping through keyActions would probably be more expensive so this is what we're left with ;-;
         if love.keyboard.isDown("w") then 
-            self.keyActions["w"](self)
-        end
-        if love.keyboard.isDown("s") then
-            self.keyActions["s"](self)
+            self.vel_y = self.vel_y - self.speed
+        elseif love.keyboard.isDown("s") then
+            self.vel_y = self.vel_y + self.speed
         end
         if love.keyboard.isDown("a") then
-            self.keyActions["a"](self)
-        end
-        if love.keyboard.isDown("d") then
-            self.keyActions["d"](self)
+            self.vel_x = self.vel_x - self.speed
+        elseif love.keyboard.isDown("d") then
+            self.vel_x = self.vel_x + self.speed
         end
         self.x = self.x + self.vel_x
         self.y = self.y + self.vel_y
