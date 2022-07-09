@@ -8,8 +8,8 @@ local Player = {
     catFocusedMode = AssetManager:loadImage(paths.sprites .. "CatFocusedMode.png"),
     catDefault = AssetManager:loadImage(paths.sprites .. "CatUnfocused.png"),
 
-    default_speed = 1,
-    focused_speed = 0.6,
+    default_speed = 2,
+    focused_speed = 1.2,
 
     shoot_cooldown = 10,
     curr_shoot_cooldown = 0,

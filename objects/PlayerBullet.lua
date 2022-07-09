@@ -7,7 +7,7 @@ local newPlayerBullet = function(initiate_active)
         bullet = AssetManager:loadImage(paths.sprites .. "Bullet.png"),
         active = initiate_active,
 
-        speed = 2,
+        speed = 4,
 
         x = 0,
         y = 0,
