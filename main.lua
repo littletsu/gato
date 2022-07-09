@@ -28,10 +28,6 @@ function love.mousepressed(x, y, button, istouch)
     end
 end
 
-function love.keypressed(key, scancode, isrepeat)
-    SceneManager:keypressed(key, scancode, isrepeat)
-end
-
 function love.quit()
     print("quit")
 end

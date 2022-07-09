@@ -23,5 +23,4 @@ return {
         self.music:stop()
     end,
     update = function() end,
-    keypressed = function() end,
 }

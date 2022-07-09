@@ -19,8 +19,5 @@ return {
     ends = function() end,
     update = function()
         Player:update()
-    end,
-    keypressed = function(self, key, scancode, isrepeat) 
-        Player:keypressed(key, scancode, isrepeat)
-    end,
+    end
 }

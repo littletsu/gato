@@ -18,12 +18,6 @@ local SM = {
             self.current:update()
         end
     end,
-
-    keypressed = function(self, key, scancode, isrepeat)
-        if self.current ~= nil then
-            self.current:keypressed(key, scancode, isrepeat)
-        end
-    end
 }
 
 return SM
