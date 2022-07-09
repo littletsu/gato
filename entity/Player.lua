@@ -49,15 +49,15 @@ local Player = {
             self.speed = self.focused_speed
         end
 
-        if love.keyboard.isDown("w") then 
+        if love.keyboard.isDown("up") then 
             self.vel_y = self.vel_y - self.speed
-        elseif love.keyboard.isDown("s") then
+        elseif love.keyboard.isDown("down") then
             self.vel_y = self.vel_y + self.speed
         end
 
-        if love.keyboard.isDown("a") then
+        if love.keyboard.isDown("left") then
             self.vel_x = self.vel_x - self.speed
-        elseif love.keyboard.isDown("d") then
+        elseif love.keyboard.isDown("right") then
             self.vel_x = self.vel_x + self.speed
         end
 
