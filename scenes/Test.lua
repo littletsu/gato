@@ -16,7 +16,9 @@ return {
         love.graphics.setColor(0, 255, 0)
         love.graphics.setFont(self.font)
     end,
-    ends = function() end,
+    ends = function() 
+        Player:ends()
+    end,
     update = function()
         Player:update()
     end
