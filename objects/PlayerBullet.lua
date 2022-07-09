@@ -12,13 +12,16 @@ local newPlayerBullet = function(initiate_active)
         x = 0,
         y = 0,
 
+        yLimit = -1,
+
         draw = function(self)
             love.graphics.draw(self.bullet, self.x, self.y)
         end,
 
         update = function(self)
             self.y = self.y - self.speed
-            if self.y > love.graphics.getHeight() then
+
+            if self.y < self.yLimit then
                 self.active = false
             end
         end
