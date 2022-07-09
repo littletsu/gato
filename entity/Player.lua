@@ -1,5 +1,6 @@
 local AssetManager = require("engine.AssetManager")
 local PlayerBullet = require("objects.PlayerBullet")
+local Offsets = require("engine.Offsets")
 local paths = require("engine.AssetPaths")
 local inspect = require("utils.inspect")
 
@@ -23,15 +24,29 @@ local Player = {
 
     focused = false,
 
+    bulletOffsets = {
+        default = {
+            x = 0,
+            y = 0
+        },
+        focused = {
+            x = 0,
+            y = 0
+        }
+    },
+
+    setBulletOffsets = function(self)
+        self.bulletOffsets.default = Offsets.middle(self.catDefault, self.scale_x, self.scale_y)
+        self.bulletOffsets.focused = Offsets.middle(self.catFocusedMode, self.scale_x, self.scale_y)
+    end,
+    
+    start = function(self) 
+        self:setBulletOffsets()
+    end,
+
     draw = function(self)
+        love.graphics.draw(self.focused and self.catFocusedMode or self.catDefault, self.x, self.y, 0, self.scale_x, self.scale_y)
         PlayerBullet:draw()
-
-        if self.focused then
-            love.graphics.draw(self.catFocusedMode, self.x, self.y, 0, self.scale_x, self.scale_y)
-            return
-        end
-
-        love.graphics.draw(self.catDefault, self.x, self.y, 0, self.scale_x, self.scale_y)
     end,
 
     update = function(self)
@@ -63,10 +78,10 @@ local Player = {
 
         if love.keyboard.isDown("z") and (self.curr_shoot_cooldown == 0) then
             self.curr_shoot_cooldown = self.shoot_cooldown
-
+            local curr_offset = self.focused and self.bulletOffsets.focused or self.bulletOffsets.default
             local activeBullet = PlayerBullet:pool()
-            activeBullet.x = self.x
-            activeBullet.y = self.y
+            activeBullet.x = self.x + curr_offset.x
+            activeBullet.y = self.y + curr_offset.y
         end
 
         self.x = self.x + self.vel_x
@@ -75,7 +90,6 @@ local Player = {
         self.vel_y = 0
     end,
 
-    start = function() end,
     ends = function() 
         PlayerBullet:ends()
     end,

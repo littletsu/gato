@@ -12,7 +12,7 @@ return {
     end,
     start = function(self) 
         print(inspect(AssetManager))
-
+        Player:start()
         love.graphics.setColor(0, 255, 0)
         love.graphics.setFont(self.font)
     end,
