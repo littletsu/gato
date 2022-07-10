@@ -41,6 +41,7 @@ local Translatable = {
                 if self.translatable_setInactive then self.active = false end
             end
         end
+        if self.translatable_update then self:translatable_update() end
     end,
 }
 

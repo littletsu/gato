@@ -3,13 +3,14 @@ local inspect = require("utils.inspect")
 local Translatable = require("engine.Translatable")
 local AssetManager = require("engine.AssetManager")
 local ObjectPool = require("engine.ObjectPool")
+local Player = require("entity.Player")
 local FallBehaviour = require("behaviours.bullets.Fall")
 local CircleSpreadBehaviour = require("behaviours.bullets.CircleSpread")
 
 local paths = require("engine.AssetPaths")
 
 local bullet = AssetManager:loadImage(paths.sprites .. "Bullet.png")
-
+local bullet_w, bullet_h = bullet:getDimensions()
 
 local newEnemyBullet = function(initiate_active)
     return TableUtils.mergeTable({
@@ -17,12 +18,18 @@ local newEnemyBullet = function(initiate_active)
         x = 0, 
         y = 0,
         translatable_setInactive = true,
-
         speed = 240,
 
         draw = function(self)
             love.graphics.draw(bullet, self.x, self.y)
-        end
+        end,
+
+        translatable_update = function(self) 
+            if Player:isCollidingWith(self.x, self.y, bullet_w, bullet_h) then
+                self.active = false
+                Player:onEnemyBulletHit()
+            end
+        end,
     }, Translatable)
 end  
 
@@ -32,7 +39,7 @@ EnemyBulletPool:fill(70)
 
 local EnemyBulletManager = {
     pool = EnemyBulletPool,
-    fire_behavior = CircleSpreadBehaviour,
+    fire_behavior = FallBehaviour,
     bulletOffsets = { x = 0, y = 0 },
     fire = function(self, count) 
         local bullets = {}
