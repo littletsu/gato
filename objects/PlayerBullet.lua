@@ -2,9 +2,10 @@ local AssetManager = require("engine.AssetManager")
 local ObjectPool = require("engine.ObjectPool")
 local paths = require("engine.AssetPaths")
 
+local bullet = AssetManager:loadImage(paths.sprites .. "Bullet.png")
+
 local newPlayerBullet = function(initiate_active)
     return {
-        bullet = AssetManager:loadImage(paths.sprites .. "Bullet.png"),
         active = initiate_active,
 
         speed = 4,
@@ -15,7 +16,7 @@ local newPlayerBullet = function(initiate_active)
         yLimit = -1,
 
         draw = function(self)
-            love.graphics.draw(self.bullet, self.x, self.y)
+            love.graphics.draw(bullet, self.x, self.y)
         end,
 
         update = function(self)

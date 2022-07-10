@@ -11,7 +11,7 @@ function love.load()
     SceneManager:switch(MainMenu)
 end
 
-function love.update()
+function love.update(dt)
     SceneManager:update()
 end
 
