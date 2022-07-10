@@ -31,6 +31,6 @@ end
 
 local PlayerBulletPool = ObjectPool.new(newPlayerBullet)
 
-PlayerBulletPool:fill(20)
+PlayerBulletPool:fill(35*5)
 
 return PlayerBulletPool

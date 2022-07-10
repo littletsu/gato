@@ -38,7 +38,7 @@ local Enemy = {
         end
         if self.curr_shoot_cooldown == 0 then
             self.curr_shoot_cooldown = self.shoot_cooldown
-            EnemyBullet:fire(5)
+            EnemyBullet:fire(35)
         end
     end,
 

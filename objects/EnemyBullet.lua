@@ -3,6 +3,7 @@
 local AssetManager = require("engine.AssetManager")
 local ObjectPool = require("engine.ObjectPool")
 local FallBehaviour = require("behaviours.bullets.Fall")
+local CircleSpreadBehaviour = require("behaviours.bullets.CircleSpread")
 
 local paths = require("engine.AssetPaths")
 
@@ -72,7 +73,7 @@ EnemyBulletPool:fill(20)
 
 local EnemyBulletManager = {
     pool = EnemyBulletPool,
-    fire_behavior = FallBehaviour,
+    fire_behavior = CircleSpreadBehaviour,
     bulletOffsets = { x = 0, y = 0 },
     fire = function(self, count) 
         local bullets = {}
