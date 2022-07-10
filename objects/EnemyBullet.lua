@@ -69,7 +69,7 @@ end
 
 local EnemyBulletPool = ObjectPool.new(newEnemyBullet)
 
-EnemyBulletPool:fill(20)
+EnemyBulletPool:fill(70)
 
 local EnemyBulletManager = {
     pool = EnemyBulletPool,
