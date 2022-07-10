@@ -14,7 +14,8 @@ local bullet = AssetManager:loadImage(paths.sprites .. "Bullet.png")
 local newEnemyBullet = function(initiate_active)
     return TableUtils.mergeTable({
         active = initiate_active,
-
+        x = 0, 
+        y = 0,
         translatable_setInactive = true,
 
         speed = 240,
@@ -31,7 +32,7 @@ EnemyBulletPool:fill(70)
 
 local EnemyBulletManager = {
     pool = EnemyBulletPool,
-    fire_behavior = FallBehaviour,
+    fire_behavior = CircleSpreadBehaviour,
     bulletOffsets = { x = 0, y = 0 },
     fire = function(self, count) 
         local bullets = {}

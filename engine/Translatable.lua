@@ -1,7 +1,7 @@
 -- position translate code from https://love2d.org/forums/viewtopic.php?p=207514#p207514
 
 local Translatable = {
-    target_x = 0, target_y = 0, x = 0, y = 0, vx = 0, vy = 0, old_x = 0, old_y = 0, dist = 0,
+    target_x = 0, target_y = 0, vx = 0, vy = 0, old_x = 0, old_y = 0, dist = 0,
     moving = false,
 
     translate = function(self, x, y) 
