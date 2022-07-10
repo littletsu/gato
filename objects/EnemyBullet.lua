@@ -59,6 +59,7 @@ local newEnemyBullet = function(initiate_active)
                     self.vx = 0
                     self.vy = 0
                     self.moving = false
+                    self.active = false
                 end
             end
         end,
@@ -76,9 +77,7 @@ local EnemyBulletManager = {
     fire = function(self, count) 
         local bullets = {}
         for i = 0, count, 1 do
-            bullets[i] = self.pool:pool() -- todo: add x and y parameter to pool
-            bullets[i].x = self.bulletOffsets.x
-            bullets[i].y = self.bulletOffsets.y
+            bullets[i] = self.pool:pool(self.bulletOffsets.x, self.bulletOffsets.y)
         end
         self.fire_behavior(bullets, count)
     end
