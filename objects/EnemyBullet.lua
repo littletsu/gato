@@ -1,5 +1,7 @@
 local AssetManager = require("engine.AssetManager")
 local ObjectPool = require("engine.ObjectPool")
+local FallBehaviour = require("behaviours.bullets.Fall")
+
 local paths = require("engine.AssetPaths")
 
 local newEnemyBullet = function(initiate_active)
@@ -8,6 +10,7 @@ local newEnemyBullet = function(initiate_active)
         active = initiate_active,
 
         speed = 4,
+        behavior = FallBehaviour,
 
         x = 0,
         y = 0,
@@ -19,7 +22,7 @@ local newEnemyBullet = function(initiate_active)
         end,
 
         update = function(self)
-            self.y = self.y + self.speed
+            self.behavior.calculate(self)
 
             if self.y > self.yLimit then
                 self.active = false

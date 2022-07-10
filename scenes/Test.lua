@@ -15,7 +15,7 @@ return {
         print(inspect(AssetManager))
         Player:start()
         Enemy:start()
-        love.graphics.setColor(0, 255, 0)
+        --love.graphics.setColor(0, 255, 0)
         love.graphics.setFont(self.font)
     end,
     ends = function() 
