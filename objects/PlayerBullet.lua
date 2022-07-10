@@ -8,7 +8,7 @@ local newPlayerBullet = function(initiate_active)
     return {
         active = initiate_active,
 
-        speed = 4,
+        speed = 240,
 
         x = 0,
         y = 0,
@@ -19,8 +19,8 @@ local newPlayerBullet = function(initiate_active)
             love.graphics.draw(bullet, self.x, self.y)
         end,
 
-        update = function(self)
-            self.y = self.y - self.speed
+        update = function(self, dt)
+            self.y = self.y - self.speed * dt
 
             if self.y < self.yLimit then
                 self.active = false

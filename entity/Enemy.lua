@@ -30,8 +30,8 @@ local Enemy = {
         EnemyBullet.pool:draw()
     end,
 
-    update = function(self)
-        EnemyBullet.pool:update()
+    update = function(self, dt)
+        EnemyBullet.pool:update(dt)
 
         if self.curr_shoot_cooldown > 0 then
             self.curr_shoot_cooldown = self.curr_shoot_cooldown - 1

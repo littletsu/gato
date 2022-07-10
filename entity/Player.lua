@@ -8,8 +8,8 @@ local Player = {
     catFocusedMode = AssetManager:loadImage(paths.sprites .. "CatFocusedMode.png"),
     catDefault = AssetManager:loadImage(paths.sprites .. "CatUnfocused.png"),
 
-    default_speed = 2,
-    focused_speed = 1.2,
+    default_speed = 120,
+    focused_speed = 72,
 
     shoot_cooldown = 10,
     curr_shoot_cooldown = 0,
@@ -51,8 +51,8 @@ local Player = {
         PlayerBullet:draw()
     end,
 
-    update = function(self)
-        PlayerBullet:update()
+    update = function(self, dt)
+        PlayerBullet:update(dt)
 
         self.focused = false
         self.speed = self.default_speed
@@ -85,9 +85,8 @@ local Player = {
             activeBullet.x = self.x + curr_offset.x
             activeBullet.y = self.y + curr_offset.y
         end
-
-        self.x = self.x + self.vel_x
-        self.y = self.y + self.vel_y
+        self.x = self.x + self.vel_x * dt
+        self.y = self.y + self.vel_y * dt
         self.vel_x = 0
         self.vel_y = 0
     end,

@@ -39,10 +39,10 @@ local ObjectPool = {
                 end
             end,
 
-            update = function(self)
+            update = function(self, dt)
                 for _, obj in ipairs(self.objects) do
                     if obj.active then
-                        obj:update()
+                        obj:update(dt)
                     end
                 end
             end,

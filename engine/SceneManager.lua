@@ -13,9 +13,9 @@ local SM = {
             self.current:draw()
         end
     end,
-    update = function(self)
+    update = function(self, dt)
         if self.current ~= nil then
-            self.current:update()
+            self.current:update(dt)
         end
     end,
 }

@@ -12,7 +12,7 @@ function love.load()
 end
 
 function love.update(dt)
-    SceneManager:update()
+    SceneManager:update(dt)
 end
 
 function love.draw()

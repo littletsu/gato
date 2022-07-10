@@ -14,7 +14,7 @@ local newEnemyBullet = function(initiate_active)
     return {
         active = initiate_active,
 
-        speed = 4,
+        speed = 240,
 
         target_x = 0, target_y = 0, x = 0, y = 0, vx = 0, vy = 0, old_x = 0, old_y = 0, dist = 0,
         moving = false,
@@ -46,11 +46,11 @@ local newEnemyBullet = function(initiate_active)
             self.moving = true
         end,
 
-        update = function(self)
+        update = function(self, dt)
             
             if self.moving then
-                self.x = self.x + self.vx
-                self.y = self.y + self.vy
+                self.x = self.x + self.vx * dt
+                self.y = self.y + self.vy * dt
 
                 local moved_dist = (self.old_x - self.x) ^ 2 + (self.old_y - self.y) ^ 2
 

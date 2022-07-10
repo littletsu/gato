@@ -22,8 +22,8 @@ return {
         Player:ends()
         Enemy:ends()
     end,
-    update = function()
-        Player:update()
-        Enemy:update()
+    update = function(self, dt)
+        Player:update(dt)
+        Enemy:update(dt)
     end
 }
