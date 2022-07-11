@@ -10,7 +10,7 @@ local CircleSpreadBehaviour = require("behaviours.bullets.CircleSpread")
 local paths = require("engine.AssetPaths")
 
 local bullet = AssetManager:loadImage(paths.sprites .. "Bullet.png")
-local bullet_w, bullet_h = bullet:getDimensions()
+local bullet_w = bullet:getWidth()
 
 local newEnemyBullet = function(initiate_active)
     return TableUtils.mergeTable({
@@ -25,7 +25,7 @@ local newEnemyBullet = function(initiate_active)
         end,
 
         translatable_update = function(self) 
-            if Player:isCollidingWith(self.x, self.y, bullet_w, bullet_h) then
+            if Player:isCollidingWith(self.x, self.y, bullet_w) then
                 self.active = false
                 Player:onEnemyBulletHit()
             end

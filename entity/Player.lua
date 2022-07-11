@@ -63,13 +63,11 @@ local Player = {
         return self.x + self.hitboxOffsets.x, self.y + self.hitboxOffsets.y
     end,
 
-    isCollidingWith = function(self, x, y, w, h) 
+    isCollidingWith = function(self, x, y, w) 
         local hitbox_w = self.hitbox:getWidth() * self.hitbox_scale_x
         local hitbox_x, hitbox_y = self:getHitboxPosition()
-        return hitbox_x < x+w 
-            and x < hitbox_x + hitbox_w
-            and hitbox_y < y+h 
-            and hitbox_y < y+h
+        local dist = (hitbox_x - x)^2 + (hitbox_y - y)^2
+        return dist <= ((hitbox_w / 2) + (w/2))^2
     end,
 
     onEnemyBulletHit = function(self)
