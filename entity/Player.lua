@@ -83,8 +83,10 @@ local Player = {
     end,
 
     draw = function(self)
-        if ((self.curr_shield_time % 3) == 2) then return end
-        love.graphics.draw(self:getSprite(), self.x, self.y, 0, self.scale_x, self.scale_y)
+        if (self.curr_shield_time % 3) ~= 2 then
+            love.graphics.draw(self:getSprite(), self.x, self.y, 0, self.scale_x, self.scale_y)
+        end
+        
         PlayerBullet:draw()
     end,
 
