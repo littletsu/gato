@@ -39,7 +39,7 @@ EnemyBulletPool:fill(70)
 
 local EnemyBulletManager = {
     pool = EnemyBulletPool,
-    fire_behavior = FallBehaviour,
+    fire_behavior = CircleSpreadBehaviour,
     bulletOffsets = { x = 0, y = 0 },
     fire = function(self, count) 
         local bullets = {}

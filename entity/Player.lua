@@ -9,6 +9,7 @@ local inspect = require("utils.inspect")
 local Player = {
     catFocusedMode = AssetManager:loadImage(paths.sprites .. "CatFocusedMode.png"),
     catDefault = AssetManager:loadImage(paths.sprites .. "CatUnfocused.png"),
+    hitbox = AssetManager:loadImage(paths.sprites .. "Bullet.png"),
 
     default_speed = 120,
     focused_speed = 72,
@@ -27,6 +28,9 @@ local Player = {
 
     scale_x = 0.3,
     scale_y = 0.3,
+    
+    hitbox_scale_x = 0.8,
+    hitbox_scale_y = 0.8,
 
     vel_x = 0,
     vel_y = 0,
@@ -45,17 +49,27 @@ local Player = {
             y = 0
         }
     },
+    
+    hitboxOffsets = {
+        x = 0,
+        y = 0
+    },
 
     getSprite = function(self) 
         return self.focused and self.catFocusedMode or self.catDefault
     end,
+    
+    getHitboxPosition = function(self) 
+        return self.x + self.hitboxOffsets.x, self.y + self.hitboxOffsets.y
+    end,
 
     isCollidingWith = function(self, x, y, w, h) 
-        local self_w = self:getSprite():getWidth() * self.scale_x
-        return self.x < x+w 
-            and x < self.x + self_w 
-            and self.y < y+h 
-            and self.y < y+h
+        local hitbox_w = self.hitbox:getWidth() * self.hitbox_scale_x
+        local hitbox_x, hitbox_y = self:getHitboxPosition()
+        return hitbox_x < x+w 
+            and x < hitbox_x + hitbox_w
+            and hitbox_y < y+h 
+            and hitbox_y < y+h
     end,
 
     onEnemyBulletHit = function(self)
@@ -69,13 +83,14 @@ local Player = {
         
     end,
 
-    setBulletOffsets = function(self)
+    setOffsets = function(self)
         self.bulletOffsets.default = Offsets.middle(self.catDefault, self.scale_x, self.scale_y)
         self.bulletOffsets.focused = Offsets.middle(self.catFocusedMode, self.scale_x, self.scale_y)
+        self.hitboxOffsets = self.bulletOffsets.focused
     end,
     
     start = function(self) 
-        self:setBulletOffsets()
+        self:setOffsets()
         self.x = Offsets.screenCenterX(self.catDefault, self.scale_x)
         self.y = 400
         self.curr_lives = self.default_lives
@@ -86,6 +101,9 @@ local Player = {
         if (self.curr_shield_time % 3) ~= 2 then
             love.graphics.draw(self:getSprite(), self.x, self.y, 0, self.scale_x, self.scale_y)
         end
+        
+        local hitbox_x, hitbox_y = self:getHitboxPosition()
+        love.graphics.draw(self.hitbox, hitbox_x, hitbox_y, 0, self.hitbox_scale_x, self.hitbox_scale_y)
         
         PlayerBullet:draw()
     end,
