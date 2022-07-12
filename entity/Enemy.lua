@@ -3,9 +3,11 @@ local Offsets = require("engine.Offsets")
 local EnemyBullet = require("objects.EnemyBullet")
 local paths = require("engine.AssetPaths")
 
+local TestEnemy = require("behaviours.enemy.TestEnemy")
+
 local Enemy = {
     sprite = AssetManager:loadImage(paths.sprites .. "HappyCat.png"),
-    
+    behavior = TestEnemy,
     shoot_cooldown = 50,
     curr_shoot_cooldown = 0,
 
@@ -15,13 +17,13 @@ local Enemy = {
     scale_x = 1,
     scale_y = 1,
 
-    setOffsets = function(self)
-        self.x = Offsets.screenCenterX(self.sprite, self.scale_x)
+    setOffsets = function(self) 
         EnemyBullet.bulletOffsets = Offsets.middle(self.sprite, self.scale_x, self.scale_y) -- todo: add x and y parameter to middle
         EnemyBullet.bulletOffsets.x = EnemyBullet.bulletOffsets.x + self.x
     end,
 
     start = function(self)
+        self.x = Offsets.screenCenterX(self.sprite, self.scale_x)
         self:setOffsets()
     end,
     
@@ -38,8 +40,9 @@ local Enemy = {
         end
         if self.curr_shoot_cooldown == 0 then
             self.curr_shoot_cooldown = self.shoot_cooldown
-            EnemyBullet:fire(35)
+            self.behavior:fire()
         end
+        self.behavior:update(self, dt)
     end,
 
     ends = function(self)
