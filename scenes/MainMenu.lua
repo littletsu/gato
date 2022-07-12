@@ -14,13 +14,13 @@ return {
         love.graphics.draw(self.textImg, (love.graphics.getWidth()/2)-10, (love.graphics.getHeight()/2)+70, 0, 2.5, 2, self.textImg:getWidth()/2, self.textImg:getHeight()/2)
     end,
     start = function(self)
-        self.music:setLooping(true)
-        self.music:play()
+        --self.music:setLooping(true)
+        --self.music:play()
         print(inspect(AssetManager))
 
     end,
     ends = function(self)
-        self.music:stop()
+        --self.music:stop()
     end,
     update = function() end,
 }
