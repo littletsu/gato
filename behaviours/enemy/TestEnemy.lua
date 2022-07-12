@@ -8,10 +8,11 @@ local TestEnemy = {
     bullets = 35,
     right = true,
 
-    fire = function(self) 
+    fire = function(self, enemy) 
         EnemyBullet.fire_behavior = CircleSpread
         EnemyBullet:fire(35, 0, 360)
         self.times = self.times + 1
+        enemy.shoot_cooldown = (self.times % 10) * 5
     end,
     
     update = function(self, enemy, dt) 

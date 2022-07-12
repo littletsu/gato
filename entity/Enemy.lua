@@ -40,7 +40,7 @@ local Enemy = {
         end
         if self.curr_shoot_cooldown == 0 then
             self.curr_shoot_cooldown = self.shoot_cooldown
-            self.behavior:fire()
+            self.behavior:fire(self)
         end
         self.behavior:update(self, dt)
     end,

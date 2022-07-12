@@ -9,7 +9,7 @@ local CircleSpreadBehaviour = require("behaviours.bullets.CircleSpread")
 
 local paths = require("engine.AssetPaths")
 
-local bullet = AssetManager:loadImage(paths.sprites .. "Bullet.png")
+local bullet = AssetManager:loadImage(paths.sprites .. "EnemyBullet.png")
 local bullet_w = bullet:getWidth()
 
 local newEnemyBullet = function(initiate_active)
@@ -47,6 +47,10 @@ local EnemyBulletManager = {
             bullets[i] = self.pool:pool(self.bulletOffsets.x, self.bulletOffsets.y)
         end
         self.fire_behavior(bullets, count, ...)
+    end,
+    setOffsets = function(self, x, y) 
+        self.bulletOffsets.x = x
+        self.bulletOffsets.y = y
     end
 }
 
