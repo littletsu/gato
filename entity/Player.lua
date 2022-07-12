@@ -9,7 +9,7 @@ local inspect = require("utils.inspect")
 local Player = {
     catFocusedMode = AssetManager:loadImage(paths.sprites .. "CatFocusedMode.png"),
     catDefault = AssetManager:loadImage(paths.sprites .. "CatUnfocused.png"),
-    hitbox = AssetManager:loadImage(paths.sprites .. "Bullet.png"),
+    hitbox = AssetManager:loadImage(paths.sprites .. "Hitbox.png"),
 
     default_speed = 120,
     focused_speed = 72,
