@@ -41,12 +41,12 @@ local EnemyBulletManager = {
     pool = EnemyBulletPool,
     fire_behavior = CircleSpreadBehaviour,
     bulletOffsets = { x = 0, y = 0 },
-    fire = function(self, count) 
+    fire = function(self, count, ...) 
         local bullets = {}
         for i = 0, count, 1 do
             bullets[i] = self.pool:pool(self.bulletOffsets.x, self.bulletOffsets.y)
         end
-        self.fire_behavior(bullets, count)
+        self.fire_behavior(bullets, count, ...)
     end
 }
 
