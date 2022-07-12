@@ -7,6 +7,7 @@ local TestEnemy = require("behaviours.enemy.TestEnemy")
 
 local Enemy = {
     sprite = AssetManager:loadImage(paths.sprites .. "HappyCat.png"),
+    fire_fx = AssetManager:loadAudio(paths.fx .. "EnemyFire.mp3", "static"),
     behavior = TestEnemy,
     shoot_cooldown = 50,
     curr_shoot_cooldown = 0,
@@ -40,6 +41,8 @@ local Enemy = {
         end
         if self.curr_shoot_cooldown == 0 then
             self.curr_shoot_cooldown = self.shoot_cooldown
+            self.fire_fx:stop()
+            self.fire_fx:play()
             self.behavior:fire(self)
         end
         self.behavior:update(self, dt)
