@@ -1,5 +1,6 @@
 local CircleSpread = require("behaviours.bullets.CircleSpread")
 local Fall = require("behaviours.bullets.Fall")
+
 local EnemyBullet = require("objects.EnemyBullet")
 
 local TestEnemy = {
@@ -8,8 +9,8 @@ local TestEnemy = {
     right = true,
 
     fire = function(self) 
-        EnemyBullet.fire_behavior = self.times % 3 == 2 and Fall or CircleSpread
-        EnemyBullet:fire(self.times % 3 == 2 and 5 or self.bullets)
+        EnemyBullet.fire_behavior = CircleSpread
+        EnemyBullet:fire(35, 0, 360)
         self.times = self.times + 1
     end,
     

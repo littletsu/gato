@@ -1,14 +1,13 @@
-local startAngle = 90
-local endAngle = 270
+local rad = math.pi / 180
 
-local CircleSpread = function(bullets, count)
-    local angleStep = (startAngle - endAngle) / count
+local CircleSpread = function(bullets, count, startAngle, endAngle)
+    local angleStep = ((startAngle or 360) - (endAngle or 0)) / count
     local angle = startAngle
     for i = 0, count, 1 do
         local bullet = bullets[i]
 
-        local bulDirX = bullet.x + (math.sin((angle * math.pi) / 180) * love.graphics.getWidth());
-        local bulDirY = bullet.x + (math.cos((angle * math.pi) / 180) * love.graphics.getWidth());
+        local bulDirX = bullet.x + (math.sin(angle * rad) * love.graphics.getWidth());
+        local bulDirY = bullet.x + (math.cos(angle * rad) * love.graphics.getWidth());
 
         bullet:translate(bulDirX, bulDirY)
         angle = angle + angleStep
