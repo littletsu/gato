@@ -14,8 +14,8 @@ local newPlayerBullet = function(initiate_active)
         x = 0,
         y = 0,
         
-        r = 255,
-        g = 255,
+        r = 1,
+        g = 1,
         b = 0,
 
         yLimit = -1,
