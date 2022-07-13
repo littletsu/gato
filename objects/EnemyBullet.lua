@@ -19,6 +19,10 @@ local newEnemyBullet = function(initiate_active)
         y = 0,
         translatable_setInactive = true,
         speed = 240,
+        
+        r = 255,
+        g = 45,
+        b = 55,
 
         translatable_update = function(self) 
             if Player:isCollidingWith(self.x, self.y, bullet_w) then

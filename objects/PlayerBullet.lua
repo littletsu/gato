@@ -13,13 +13,13 @@ local newPlayerBullet = function(initiate_active)
 
         x = 0,
         y = 0,
+        
+        r = 255,
+        g = 255,
+        b = 0,
 
         yLimit = -1,
-
-        draw = function(self)
-            love.graphics.draw(bullet, self.x, self.y)
-        end,
-
+        
         update = function(self, dt)
             self.y = self.y - self.speed * dt
 

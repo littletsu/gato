@@ -40,6 +40,7 @@ local ObjectPool = {
                 self.spriteBatch:clear()
                 for _, obj in ipairs(self.objects) do
                     if obj.active then
+                        self.spriteBatch:setColor(obj.r, obj.g, obj.b)
                         self.spriteBatch:add(self.spriteQuad, obj.x, obj.y)
                     end
                 end
