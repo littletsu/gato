@@ -7,7 +7,7 @@ local CircleSpread = function(bullets, count, startAngle, endAngle, speed)
         local bullet = bullets[i]
         if speed then bullet.speed = speed end
         local bulDirX = bullet.x + (math.sin(angle * rad) * love.graphics.getWidth());
-        local bulDirY = bullet.x + (math.cos(angle * rad) * love.graphics.getWidth());
+        local bulDirY = bullet.x + (math.cos(angle * rad) * love.graphics.getHeight());
 
         bullet:translate(bulDirX, bulDirY)
         angle = angle + angleStep
