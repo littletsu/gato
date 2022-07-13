@@ -3,6 +3,7 @@ local ObjectPool = require("engine.ObjectPool")
 local paths = require("engine.AssetPaths")
 
 local bullet = AssetManager:loadImage(paths.sprites .. "Bullet.png")
+local bullet_w, bullet_h = bullet:getDimensions()
 
 local newPlayerBullet = function(initiate_active)
     return {
@@ -29,7 +30,11 @@ local newPlayerBullet = function(initiate_active)
     }
 end  
 
-local PlayerBulletPool = ObjectPool.new(newPlayerBullet)
+local createSpriteBatch = function() 
+    return love.graphics.newSpriteBatch(bullet), love.graphics.newQuad(0, 0, bullet_w, bullet_h, bullet_w, bullet_h)
+end
+
+local PlayerBulletPool = ObjectPool.new(newPlayerBullet, createSpriteBatch)
 
 PlayerBulletPool:fill(35)
 

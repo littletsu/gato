@@ -2,6 +2,7 @@ local AM = {
     loadedImages = {},
     loadedFonts = {},
     loadedAudio = {},
+    loadedShaders = {},
 
     loadImage = function(self, path)
         if self.loadedImages[path] == nil then
@@ -25,7 +26,15 @@ local AM = {
         end
 
         return self.loadedAudio[path]
-    end
+    end,
+    
+    loadShader = function(self, path)
+        if self.loadedShaders[path] == nil then
+            self.loadedShaders[path] = love.graphics.newShader(path)
+        end
+
+        return self.loadedShaders[path]
+    end,
 }
 
 return AM

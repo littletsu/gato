@@ -1,5 +1,7 @@
 local ObjectPool = {
-    new = function(instantiate_new) 
+    new = function(instantiate_new, create_sprite_batch)
+        local sprite_batch, quad = create_sprite_batch()
+        
         return {
             -- pooling
             objects = {},
@@ -31,12 +33,17 @@ local ObjectPool = {
             end,
 
             -- game
+            spriteBatch = sprite_batch,
+            spriteQuad = quad,
+            
             draw = function(self)
+                self.spriteBatch:clear()
                 for _, obj in ipairs(self.objects) do
                     if obj.active then
-                        obj:draw()
+                        self.spriteBatch:add(self.spriteQuad, obj.x, obj.y)
                     end
                 end
+                love.graphics.draw(self.spriteBatch)
             end,
 
             update = function(self, dt)

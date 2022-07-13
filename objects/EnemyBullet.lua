@@ -10,7 +10,7 @@ local CircleSpreadBehaviour = require("behaviours.bullets.CircleSpread")
 local paths = require("engine.AssetPaths")
 
 local bullet = AssetManager:loadImage(paths.sprites .. "EnemyBullet.png")
-local bullet_w = bullet:getWidth()
+local bullet_w, bullet_h = bullet:getDimensions()
 
 local newEnemyBullet = function(initiate_active)
     return TableUtils.mergeTable({
@@ -19,10 +19,6 @@ local newEnemyBullet = function(initiate_active)
         y = 0,
         translatable_setInactive = true,
         speed = 240,
-
-        draw = function(self)
-            love.graphics.draw(bullet, self.x, self.y)
-        end,
 
         translatable_update = function(self) 
             if Player:isCollidingWith(self.x, self.y, bullet_w) then
@@ -33,7 +29,11 @@ local newEnemyBullet = function(initiate_active)
     }, Translatable)
 end  
 
-local EnemyBulletPool = ObjectPool.new(newEnemyBullet)
+local createSpriteBatch = function() 
+    return love.graphics.newSpriteBatch(bullet), love.graphics.newQuad(0, 0, bullet_w, bullet_h, bullet_w, bullet_h)
+end
+
+local EnemyBulletPool = ObjectPool.new(newEnemyBullet, createSpriteBatch)
 
 EnemyBulletPool:fill(70)
 
