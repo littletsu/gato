@@ -10,7 +10,7 @@ local CircleSpread = function(bullets, count, startAngle, endAngle, speed)
         bullet.r, bullet.g, bullet.b = color.HSL(i * 1/count, 1, 0.5, 1)
         if speed then bullet.speed = speed end
         local bulDirX = bullet.x + (math.sin(angle * rad) * love.graphics.getWidth());
-        local bulDirY = bullet.x + (math.cos(angle * rad) * love.graphics.getHeight());
+        local bulDirY = bullet.y + (math.cos(angle * rad) * love.graphics.getHeight());
 
         bullet:translate(bulDirX, bulDirY)
         angle = angle + angleStep

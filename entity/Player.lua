@@ -9,6 +9,7 @@ local inspect = require("utils.inspect")
 local Player = {
     catFocusedMode = AssetManager:loadImage(paths.sprites .. "CatFocusedMode.png"),
     catDefault = AssetManager:loadImage(paths.sprites .. "CatUnfocused.png"),
+    catIcon = AssetManager:loadImage(paths.ui .. "CatIcon.png"),
     hitbox = AssetManager:loadImage(paths.sprites .. "Hitbox.png"),
 
     default_speed = 120,
@@ -25,6 +26,9 @@ local Player = {
 
     x = 0,
     y = 0,
+    
+    statusX = 0,
+    statusY = 0,
 
     scale_x = 0.3,
     scale_y = 0.3,
@@ -74,7 +78,7 @@ local Player = {
         if self.curr_shield_time > 0 then return end 
         self.curr_shield_time = self.default_shield_time
         self.curr_lives = self.curr_lives - 1
-        if self.curr_lives <= 0 then
+        if self.curr_lives <= -1 then
             SceneManager:switch(MainMenu)
         end
         print("hit")
@@ -104,6 +108,10 @@ local Player = {
         love.graphics.draw(self.hitbox, hitbox_x, hitbox_y, 0, self.hitbox_scale_x, self.hitbox_scale_y)
         
         PlayerBullet:draw()
+        
+        for i = 0, self.curr_lives, 1 do 
+            love.graphics.draw(self.catIcon, self.statusX + (i * self.catIcon:getWidth()), statusY)
+        end
     end,
 
     update = function(self, dt)
