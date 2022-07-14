@@ -27,9 +27,13 @@ local Player = {
     x = 0,
     y = 0,
     
-    statusX = 0,
-    statusY = 0,
-
+    status_x = 0,
+    status_y = 0,
+    
+    catIcon_scale_x = 0.5,
+    catIcon_scale_y = 0.5,
+    catIcon_offset_x = 0,
+    
     scale_x = 0.3,
     scale_y = 0.3,
     
@@ -93,8 +97,17 @@ local Player = {
     
     start = function(self) 
         self:setOffsets()
+        
+        local catIcon_h = self.catIcon:getWidth() * self.catIcon_scale_x
+        
+        self.status_x = 5
+        self.status_y = love.graphics.getHeight() - catIcon_h - 5
+        
+        self.catIcon_offset_x = catIcon_h + 5
+        
         self.x = Offsets.screenCenterX(self.catDefault, self.scale_x)
         self.y = 400
+        
         self.curr_lives = self.default_lives
         self.curr_shield_time = 0
     end,
@@ -110,7 +123,7 @@ local Player = {
         PlayerBullet:draw()
         
         for i = 0, self.curr_lives, 1 do 
-            love.graphics.draw(self.catIcon, self.statusX + (i * self.catIcon:getWidth()), statusY)
+            love.graphics.draw(self.catIcon, self.status_x + (i * self.catIcon_offset_x), self.status_y, 0, self.catIcon_scale_x, self.catIcon_scale_y)
         end
     end,
 
