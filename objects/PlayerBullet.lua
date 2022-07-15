@@ -9,7 +9,7 @@ local newPlayerBullet = function(initiate_active)
     return {
         active = initiate_active,
 
-        speed = 240,
+        speed = 340,
 
         x = 0,
         y = 0,

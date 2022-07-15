@@ -12,7 +12,7 @@ local Player = {
     catIcon = AssetManager:loadImage(paths.ui .. "CatIcon.png"),
     hitbox = AssetManager:loadImage(paths.sprites .. "Hitbox.png"),
 
-    default_speed = 120,
+    default_speed = 145,
     focused_speed = 72,
 
     shoot_cooldown = 10,
@@ -90,7 +90,7 @@ local Player = {
         
     end,
     
-    setOffsets = function(self)
+    setSpriteOffsets = function(self)
         self.focusedOffsets = {
             x = 0 - (self.catFocusedMode:getWidth() / 2 * self.focused_scale_x),
             y = 0 - (self.catFocusedMode:getHeight() / 2 * self.focused_scale_y),
@@ -100,22 +100,28 @@ local Player = {
             y = 0 - (self.catDefault:getHeight() / 2 * self.scale_y),
         }
     end,
-  
-    start = function(self) 
-        self:setOffsets()
-        
+    
+    setUIOffsets = function(self) 
         local catIcon_h = self.catIcon:getWidth() * self.catIcon_scale_x
         
         self.status_x = 5
         self.status_y = love.graphics.getHeight() - catIcon_h - 5
         
         self.catIcon_offset_x = catIcon_h + 5
-        
+    end,
+    
+    reset = function(self)
         self.x = Offsets.screenCenterX(self.catDefault, self.scale_x)
         self.y = 400
         
         self.curr_lives = self.default_lives
         self.curr_shield_time = 0
+    end,
+  
+    start = function(self) 
+        self:setSpriteOffsets()
+        self:setUIOffsets()
+        self:reset()
     end,
 
     draw = function(self)
