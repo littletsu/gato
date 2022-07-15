@@ -1,6 +1,9 @@
 local inspect = require("utils.inspect")
+
 local AssetManager = require("engine.AssetManager")
 local paths = require("engine.AssetPaths")
+
+local Dialog = require("entity.Dialog")
 local Background = require("entity.Background")
 local Player = require("entity.Player")
 local Enemy = require("entity.Enemy")
@@ -12,6 +15,9 @@ return {
         Background:draw()
         Enemy:draw()
         Player:draw()
+        if Dialog.in_dialog then 
+            Dialog:draw()
+        end
     end,
     start = function(self) 
         print(inspect(AssetManager))
@@ -25,6 +31,10 @@ return {
         Enemy:ends()
     end,
     update = function(self, dt)
+        if Dialog.in_dialog then 
+            Dialog:update(dt)
+            return
+        end
         Player:update(dt)
         Enemy:update(dt)
     end

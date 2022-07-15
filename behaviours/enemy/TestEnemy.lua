@@ -1,5 +1,6 @@
 local CircleSpread = require("behaviours.bullets.CircleSpread")
 local Fall = require("behaviours.bullets.Fall")
+local Dialog = require("entity.Dialog")
 local AssetManager = require("engine.AssetManager")
 local paths = require("engine.AssetPaths")
 local EnemyBullet = require("objects.EnemyBullet")
@@ -13,10 +14,12 @@ local TestEnemy = {
     
     reset = function(self, enemy) 
         self.times = 0
+        Dialog:show()
         enemy.sprite = Hadsdrunfel
     end,
     
-    fire = function(self, enemy) 
+    fire = function(self, enemy)
+        
         EnemyBullet.fire_behavior = CircleSpread
         EnemyBullet:fire(25, 0, 360, ((self.times % 10) * 20)+450)
         EnemyBullet:setOffsets((love.graphics.getWidth()/3)*((self.times%2)+1), (love.graphics.getWidth()/8)*((self.times%2)+1))
