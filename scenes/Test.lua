@@ -1,6 +1,7 @@
 local inspect = require("utils.inspect")
 local AssetManager = require("engine.AssetManager")
 local paths = require("engine.AssetPaths")
+local Background = require("entity.Background")
 local Player = require("entity.Player")
 local Enemy = require("entity.Enemy")
 
@@ -8,6 +9,7 @@ return {
     font = AssetManager:loadFont(paths.fonts .. "ARCADE_N.TTF"),
     draw = function()
         --print("draw test")
+        Background:draw()
         Enemy:draw()
         Player:draw()
     end,

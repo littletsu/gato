@@ -4,13 +4,16 @@ local AssetManager = require("engine.AssetManager")
 local paths = require("engine.AssetPaths")
 local EnemyBullet = require("objects.EnemyBullet")
 
+local Hadsdrunfel = AssetManager:loadImage(paths.sprites .. "Hadsdrunfel.png")
+
 local TestEnemy = {
     times = 0,
     bullets = 35,
     right = true,
-
-    reset = function(self) 
+    
+    reset = function(self, enemy) 
         self.times = 0
+        enemy.sprite = Hadsdrunfel
     end,
     
     fire = function(self, enemy) 
@@ -25,7 +28,7 @@ local TestEnemy = {
     update = function(self, enemy, dt) 
         if right then
             if not (enemy.x > (love.graphics.getWidth()-enemy.sprite:getWidth())) then 
-                enemy.x = enemy.x + 1
+                enemy.x = enemy.x + enemy.speed * dt
                 enemy:setOffsets()
                 return
             end
@@ -33,7 +36,7 @@ local TestEnemy = {
             right = false
         else 
             if not (enemy.x <= 0) then 
-                enemy.x = enemy.x - 1
+                enemy.x = enemy.x - enemy.speed * dt
                 enemy:setOffsets()
                 return
             end

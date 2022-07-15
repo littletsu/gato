@@ -10,6 +10,8 @@ local Enemy = {
     fire_fx = AssetManager:loadAudio(paths.fx .. "EnemyFire.mp3", "static"),
     behavior = TestEnemy,
     
+    speed = 60,
+    
     default_shoot_cooldown = 50,
     shoot_cooldown = 50,
     curr_shoot_cooldown = 0,
@@ -29,7 +31,7 @@ local Enemy = {
         self.x = Offsets.screenCenterX(self.sprite, self.scale_x)
         self:setOffsets()
         self.shoot_cooldown = self.default_shoot_cooldown
-        self.behavior:reset()
+        self.behavior:reset(self)
     end,
     
     draw = function(self) 
