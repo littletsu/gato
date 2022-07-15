@@ -8,7 +8,7 @@ local inspect = require("utils.inspect")
 
 local Player = {
     catFocusedMode = AssetManager:loadImage(paths.sprites .. "CatFocusedMode.png"),
-    catDefault = AssetManager:loadImage(paths.sprites .. "CatUnfocused.png"),
+    catDefault = AssetManager:loadImage(paths.sprites .. "CatFocusedMode.png"),
     catIcon = AssetManager:loadImage(paths.ui .. "CatIcon.png"),
     hitbox = AssetManager:loadImage(paths.sprites .. "Hitbox.png"),
 
@@ -18,10 +18,10 @@ local Player = {
     shoot_cooldown = 10,
     curr_shoot_cooldown = 0,
 
-    default_lives = 5,
-    curr_lives = 5,
+    default_lives = 9,
+    curr_lives = 9,
 
-    default_shield_time = 15,
+    default_shield_time = 100,
     curr_shield_time = 0,
 
     x = 0,
@@ -30,12 +30,16 @@ local Player = {
     status_x = 0,
     status_y = 0,
     
-    catIcon_scale_x = 0.5,
-    catIcon_scale_y = 0.5,
     catIcon_offset_x = 0,
     
-    scale_x = 0.3,
-    scale_y = 0.3,
+    catIcon_scale_x = 0.5,
+    catIcon_scale_y = 0.5,
+    
+    scale_x = 0.35,
+    scale_y = 0.35,
+    
+    focused_scale_x = 0.3,
+    focused_scale_y = 0.3,
     
     hitbox_scale_x = 0.8,
     hitbox_scale_y = 0.8,
@@ -46,35 +50,32 @@ local Player = {
     speed = 1,
 
     focused = false,
-
-    bulletOffsets = {
-        default = {
-            x = 0,
-            y = 0
-        },
-        focused = {
-            x = 0,
-            y = 0
-        }
+    
+    focusedOffsets = {
+        x = 0, 
+        y = 0,
     },
     
-    hitboxOffsets = {
+    defaultOffsets = {
         x = 0,
-        y = 0
+        y = 0,
     },
 
-    getSprite = function(self) 
-        return self.focused and self.catFocusedMode or self.catDefault
+    -- getSprite = function(self) 
+    --     return self.focused and self.catFocusedMode or self.catDefault
+    -- end,
+    
+    getDrawParams = function(self) 
+        return self.focused 
+                and 
+            {self.x + self.focusedOffsets.x, self.y + self.focusedOffsets.y, 0, self.focused_scale_x, self.focused_scale_y} 
+                or 
+            {self.x + self.defaultOffsets.x, self.y + self.defaultOffsets.y, 0, self.scale_x, self.scale_y}
     end,
     
-    getHitboxPosition = function(self) 
-        return self.x + self.hitboxOffsets.x, self.y + self.hitboxOffsets.y
-    end,
-
     isCollidingWith = function(self, x, y, w) 
         local hitbox_w = self.hitbox:getWidth() * self.hitbox_scale_x
-        local hitbox_x, hitbox_y = self:getHitboxPosition()
-        local dist = (hitbox_x - x)^2 + (hitbox_y - y)^2
+        local dist = (self.x - x)^2 + (self.y - y)^2
         return dist <= ((hitbox_w / 2) + (w/2))^2
     end,
 
@@ -88,13 +89,18 @@ local Player = {
         print("hit")
         
     end,
-
-    setOffsets = function(self)
-        self.bulletOffsets.default = Offsets.middle(self.catDefault, self.scale_x, self.scale_y)
-        self.bulletOffsets.focused = Offsets.middle(self.catFocusedMode, self.scale_x, self.scale_y)
-        self.hitboxOffsets = self.bulletOffsets.focused
-    end,
     
+    setOffsets = function(self)
+        self.focusedOffsets = {
+            x = 0 - (self.catFocusedMode:getWidth() / 2 * self.focused_scale_x),
+            y = 0 - (self.catFocusedMode:getHeight() / 2 * self.focused_scale_y),
+        }
+        self.defaultOffsets = {
+            x = 0 - (self.catDefault:getWidth() / 2 * self.scale_x),
+            y = 0 - (self.catDefault:getHeight() / 2 * self.scale_y),
+        }
+    end,
+  
     start = function(self) 
         self:setOffsets()
         
@@ -114,11 +120,10 @@ local Player = {
 
     draw = function(self)
         if (self.curr_shield_time % 3) ~= 2 then
-            love.graphics.draw(self:getSprite(), self.x, self.y, 0, self.scale_x, self.scale_y)
+            love.graphics.draw(self.catDefault, unpack(self:getDrawParams()))
         end
-        
-        local hitbox_x, hitbox_y = self:getHitboxPosition()
-        love.graphics.draw(self.hitbox, hitbox_x, hitbox_y, 0, self.hitbox_scale_x, self.hitbox_scale_y)
+
+        love.graphics.draw(self.hitbox, self.x, self.y, 0, self.hitbox_scale_x, self.hitbox_scale_y)
         
         PlayerBullet:draw()
         
@@ -160,10 +165,10 @@ local Player = {
 
         if love.keyboard.isDown("z") and (self.curr_shoot_cooldown == 0) then
             self.curr_shoot_cooldown = self.shoot_cooldown
-            local curr_offset = self.focused and self.bulletOffsets.focused or self.bulletOffsets.default
+
             local activeBullet = PlayerBullet:pool()
-            activeBullet.x = self.x + curr_offset.x
-            activeBullet.y = self.y + curr_offset.y
+            activeBullet.x = self.x
+            activeBullet.y = self.y
         end
         self.x = self.x + self.vel_x * dt
         self.y = self.y + self.vel_y * dt
