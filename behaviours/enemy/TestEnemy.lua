@@ -16,7 +16,7 @@ local TestEnemy = {
     bullets = 35,
     right = true,
     
-    reset = function(self, enemy) 
+    start = function(self, enemy) 
         self.times = 0
         Dialog:showDialog(dialog)
         enemy.sprite = Hadsdrunfel

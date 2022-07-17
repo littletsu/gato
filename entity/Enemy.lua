@@ -31,7 +31,7 @@ local Enemy = {
         self.x = Offsets.screenCenterX(self.sprite, self.scale_x)
         self:setOffsets()
         self.shoot_cooldown = self.default_shoot_cooldown
-        self.behavior:reset(self)
+        self.behavior:start(self)
     end,
     
     draw = function(self) 

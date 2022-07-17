@@ -2,7 +2,7 @@ Project structure:
 * /assets
     - general assets for the game
 * /behaviours
-    - functions that calculate the position of game objects
+    - functions that calculate the position or control other aspects of game objects
 * /engine
     - game engine and modules that complement love2d
 * /entity
