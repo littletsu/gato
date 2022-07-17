@@ -6,6 +6,7 @@ local Dialog = {
     in_dialog = false,
     name = "DialogName",
     text = "Test dialog",
+    curr_text = "",
     font = AssetManager:loadFont(paths.fonts .. "ARCADE_N.TTF"),
     sprite = AssetManager:loadImage(paths.sprites .. "Hadsdrunfel.png"),
     
@@ -35,6 +36,9 @@ local Dialog = {
     
     characters = {},
     curr_character = "",
+    
+    update_text = false,
+    curr_char = 1,
 
     setText = function(self, text, character)
         if self.curr_character ~= character then 
@@ -45,7 +49,10 @@ local Dialog = {
             self.curr_character = character
         end
         self.text_box_w = love.graphics.getWidth() - self.x * 2
+        self.curr_text = ""
+        self.curr_char = 1
         self.text = text
+        self.update_text = true
     end,
     
     dialogActions = {
@@ -87,6 +94,14 @@ local Dialog = {
     end,
     
     update = function(self)
+        if self.update_text then 
+            self.curr_text = self.curr_text .. self.text:sub(self.curr_char, self.curr_char)
+            self.curr_char = self.curr_char + 1
+            if self.curr_text == self.text then 
+                self.update_text = false
+            end
+        end
+    
         if self.curr_skip_cooldown > 0 then
             self.curr_skip_cooldown = self.curr_skip_cooldown - 1
             return
@@ -112,7 +127,7 @@ local Dialog = {
         love.graphics.setColor(1, 1, 1)
 
         love.graphics.print(self.name, self.font, self.x + self.name_padding, self.y + self.name_padding)
-        love.graphics.print(self.text, self.font, self.x + self.text_padding, text_box_y + self.text_padding)
+        love.graphics.print(self.curr_text, self.font, self.x + self.text_padding, text_box_y + self.text_padding)
         
     end,
 }
