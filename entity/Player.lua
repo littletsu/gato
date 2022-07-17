@@ -4,6 +4,7 @@ local MainMenu = require("scenes.MainMenu")
 local PlayerBullet = require("objects.PlayerBullet")
 local Offsets = require("engine.Offsets")
 local paths = require("engine.AssetPaths")
+local Dialog = require("entity.Dialog")
 local inspect = require("utils.inspect")
 
 local Player = {
@@ -16,7 +17,7 @@ local Player = {
     focused_speed = 72,
 
     shoot_cooldown = 10,
-    curr_shoot_cooldown = 0,
+    curr_shoot_cooldown = 10,
 
     default_lives = 9,
     curr_lives = 9,
@@ -61,10 +62,6 @@ local Player = {
         y = 0,
     },
 
-    -- getSprite = function(self) 
-    --     return self.focused and self.catFocusedMode or self.catDefault
-    -- end,
-    
     getDrawParams = function(self) 
         return self.focused 
                 and 
@@ -129,13 +126,17 @@ local Player = {
             love.graphics.draw(self.catDefault, unpack(self:getDrawParams()))
         end
 
-        love.graphics.draw(self.hitbox, self.x, self.y, 0, self.hitbox_scale_x, self.hitbox_scale_y)
+        if not Dialog.in_dialog then 
+            love.graphics.draw(self.hitbox, self.x, self.y, 0, self.hitbox_scale_x, self.hitbox_scale_y)
+            
+            for i = 0, self.curr_lives, 1 do 
+                love.graphics.draw(self.catIcon, self.status_x + (i * self.catIcon_offset_x), self.status_y, 0, self.catIcon_scale_x, self.catIcon_scale_y)
+            end
+        end
         
         PlayerBullet:draw()
         
-        for i = 0, self.curr_lives, 1 do 
-            love.graphics.draw(self.catIcon, self.status_x + (i * self.catIcon_offset_x), self.status_y, 0, self.catIcon_scale_x, self.catIcon_scale_y)
-        end
+        
     end,
 
     update = function(self, dt)

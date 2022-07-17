@@ -1,0 +1,9 @@
+set hadsdrunfel sprite Hadsdrunfel.png
+set hadsdrunfel name Hadsdrunfel
+set cat sprite CatFocusedMode.png
+set cat name Gato
+text hadsdrunfel Un unturned o q
+text cat No
+text hadsdrunfel Denme agua potable grr
+text cat No
+text hadsdrunfel :,v

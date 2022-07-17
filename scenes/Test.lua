@@ -19,6 +19,7 @@ return {
             Dialog:draw()
         end
     end,
+    
     start = function(self) 
         print(inspect(AssetManager))
         Player:start()

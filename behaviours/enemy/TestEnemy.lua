@@ -5,6 +5,10 @@ local AssetManager = require("engine.AssetManager")
 local paths = require("engine.AssetPaths")
 local EnemyBullet = require("objects.EnemyBullet")
 
+local inspect = require("utils.inspect")
+local dialog = AssetManager:loadDialog(paths.dialogs .. "TestEnemy/0.txt")
+print(inspect(dialog))
+
 local Hadsdrunfel = AssetManager:loadImage(paths.sprites .. "Hadsdrunfel.png")
 
 local TestEnemy = {
@@ -14,7 +18,7 @@ local TestEnemy = {
     
     reset = function(self, enemy) 
         self.times = 0
-        Dialog:show()
+        Dialog:showDialog(dialog)
         enemy.sprite = Hadsdrunfel
     end,
     

@@ -1,8 +1,11 @@
+local DialogParser = require("engine.DialogParser")
+
 local AM = {
     loadedImages = {},
     loadedFonts = {},
     loadedAudio = {},
     loadedShaders = {},
+    loadedDialogs = {},
 
     loadImage = function(self, path)
         if self.loadedImages[path] == nil then
@@ -35,6 +38,14 @@ local AM = {
 
         return self.loadedShaders[path]
     end,
+    
+    loadDialog = function(self, path) 
+        if self.loadedDialogs[path] == nil then
+            self.loadedDialogs[path] = DialogParser(love.filesystem.read(path))
+        end
+        
+        return self.loadedDialogs[path]
+    end
 }
 
 return AM
