@@ -6,4 +6,5 @@ text hadsdrunfel Un unturned o q
 text cat No
 text hadsdrunfel Denme agua potable grr
 text cat No
+set hadsdrunfel sprite SadCat.png
 text hadsdrunfel :,v

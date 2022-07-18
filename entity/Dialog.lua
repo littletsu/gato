@@ -90,6 +90,7 @@ local Dialog = {
         self.in_dialog = true
         self.dialogs = dialogs
         self.curr_dialog = 1
+        self.curr_character = ""
         self:next()
     end,
     
