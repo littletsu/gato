@@ -122,7 +122,7 @@ local Player = {
     end,
 
     draw = function(self)
-        if (self.curr_shield_time % 3) ~= 2 then
+        if (self.curr_shield_time % 3) ~= 2 or Dialog.in_dialog then
             love.graphics.draw(self.catDefault, unpack(self:getDrawParams()))
         end
         
