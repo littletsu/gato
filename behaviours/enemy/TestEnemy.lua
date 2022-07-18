@@ -18,17 +18,17 @@ local TestEnemy = {
     
     start = function(self, enemy) 
         self.times = 0
-        Dialog:showDialog(dialog)
+        
         enemy.sprite = Hadsdrunfel
     end,
     
     fire = function(self, enemy)
-        
         EnemyBullet.fire_behavior = CircleSpread
         EnemyBullet:fire(25, 0, 360, ((self.times % 10) * 20)+450)
         EnemyBullet:setOffsets((love.graphics.getWidth()/3)*((self.times%2)+1), (love.graphics.getWidth()/8)*((self.times%2)+1))
         EnemyBullet:fire(25, 0, 360, 500+((self.times%5)*50))
         self.times = self.times + 1
+        if self.times == 5 then Dialog:showDialog(dialog) end
         enemy.shoot_cooldown = (self.times % 30)+10
     end,
     
