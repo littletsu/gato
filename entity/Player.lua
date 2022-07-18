@@ -129,14 +129,12 @@ local Player = {
         if not Dialog.in_dialog then 
             love.graphics.draw(self.hitbox, self.x, self.y, 0, self.hitbox_scale_x, self.hitbox_scale_y)
             
+            PlayerBullet:draw()
+            
             for i = 0, self.curr_lives, 1 do 
                 love.graphics.draw(self.catIcon, self.status_x + (i * self.catIcon_offset_x), self.status_y, 0, self.catIcon_scale_x, self.catIcon_scale_y)
             end
         end
-        
-        PlayerBullet:draw()
-        
-        
     end,
 
     update = function(self, dt)
