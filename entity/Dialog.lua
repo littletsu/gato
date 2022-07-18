@@ -108,7 +108,7 @@ local Dialog = {
             return
         end
         
-        if love.keyboard.isDown("z") then 
+        if love.keyboard.isDown("space") then 
             self.curr_skip_cooldown = self.skip_cooldown
             self:next()
         end
