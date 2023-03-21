@@ -131,6 +131,13 @@ local Dialog = {
         love.graphics.print(self.curr_text, self.font, self.x + self.text_padding, text_box_y + self.text_padding)
         
     end,
+
+    ends = function(self) 
+        self.in_dialog = false
+        self.dialogs = {}
+        self.curr_dialog = 1
+        self.curr_character = ""
+    end
 }
 
 return Dialog

@@ -11,7 +11,7 @@ local Enemy = require("entity.Enemy")
 
 return {
     font = AssetManager:loadFont(paths.fonts .. "ARCADE_N.TTF"),
-    
+
     draw = function()
         Background:draw()
         Enemy:draw()
@@ -33,6 +33,7 @@ return {
     ends = function() 
         Player:ends()
         Enemy:ends()
+        Dialog:ends()
     end,
     update = function(self, dt)
         if Dialog.in_dialog then 
