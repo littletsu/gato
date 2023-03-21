@@ -28,14 +28,6 @@ local Player = {
     x = 0,
     y = 0,
     
-    status_x = 0,
-    status_y = 0,
-    
-    catIcon_offset_x = 0,
-    
-    catIcon_scale_x = 0.5,
-    catIcon_scale_y = 0.5,
-    
     scale_x = 0.35,
     scale_y = 0.35,
     
@@ -98,15 +90,6 @@ local Player = {
         }
     end,
     
-    setUIOffsets = function(self) 
-        local catIcon_h = self.catIcon:getWidth() * self.catIcon_scale_x
-        
-        self.status_x = 5
-        self.status_y = love.graphics.getHeight() - catIcon_h - 5
-        
-        self.catIcon_offset_x = catIcon_h + 5
-    end,
-    
     reset = function(self)
         self.x = Offsets.screenCenterX(self.catDefault, self.scale_x)
         self.y = 400
@@ -117,7 +100,6 @@ local Player = {
   
     start = function(self) 
         self:setSpriteOffsets()
-        self:setUIOffsets()
         self:reset()
     end,
 
@@ -127,14 +109,7 @@ local Player = {
         end
         
         PlayerBullet:draw()
-        
-        if not Dialog.in_dialog then 
-            love.graphics.draw(self.hitbox, self.x, self.y, 0, self.hitbox_scale_x, self.hitbox_scale_y)
-            
-            for i = 0, self.curr_lives, 1 do 
-                love.graphics.draw(self.catIcon, self.status_x + (i * self.catIcon_offset_x), self.status_y, 0, self.catIcon_scale_x, self.catIcon_scale_y)
-            end
-        end
+        love.graphics.draw(self.hitbox, self.x, self.y, 0, self.hitbox_scale_x, self.hitbox_scale_y)
     end,
 
     update = function(self, dt)

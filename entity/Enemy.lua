@@ -4,10 +4,14 @@ local EnemyBullet = require("objects.EnemyBullet")
 local paths = require("engine.AssetPaths")
 
 local TestEnemy = require("behaviours.enemy.TestEnemy")
-
+local NO_SOUND = {
+    play = function() end,
+    stop = function() end,
+}
 local Enemy = {
     sprite = AssetManager:loadImage(paths.sprites .. "HappyCat.png"),
-    fire_fx = AssetManager:loadAudio(paths.fx .. "EnemyFire.mp3", "static"),
+    -- fire_fx = AssetManager:loadAudio(paths.fx .. "EnemyFire.mp3", "static"),
+    fire_fx = NO_SOUND,
     behavior = TestEnemy,
     
     speed = 60,
